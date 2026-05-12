@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Viewer</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: #000;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+    }
+    img {
+      max-width: 700px;
+      max-height: 80vh;
+      object-fit: contain;
+      display: block;
+    }
+    .nav {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+    .nav button {
+      background: none;
+      border: none;
+      color: #fff;
+      font-size: 28px;
+      cursor: pointer;
+      opacity: 0.6;
+      transition: opacity 0.15s;
+    }
+    .nav button:hover:not(:disabled) { opacity: 1; }
+    .nav button:disabled { opacity: 0.15; cursor: default; }
+    .nav span {
+      color: rgba(255,255,255,0.35);
+      font-family: monospace;
+      font-size: 13px;
+      letter-spacing: 0.1em;
+    }
+  </style>
+</head>
+<body>
+
+  <img id="img" src="img1.png" alt="">
+
+  <div class="nav">
+    <button id="prev" disabled>&#8592;</button>
+    <span id="count">1 / 4</span>
+    <button id="next">&#8594;</button>
+  </div>
+
+  <script>
+    const images = ['img1.png', 'img2.png', 'img3.png', 'img.4.png'];
+    let i = 0;
+    const img   = document.getElementById('img');
+    const count = document.getElementById('count');
+    const prev  = document.getElementById('prev');
+    const next  = document.getElementById('next');
+
+    function go(n) {
+      i = n;
+      img.src = images[i];
+      count.textContent = `${i + 1} / ${images.length}`;
+      prev.disabled = i === 0;
+      next.disabled = i === images.length - 1;
+    }
+
+    prev.addEventListener('click', () => go(i - 1));
+    next.addEventListener('click', () => go(i + 1));
+  </script>
+
+</body>
+</html>
